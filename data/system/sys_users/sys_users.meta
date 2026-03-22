@@ -1,0 +1,20 @@
+{
+  "table_name": "sys_users",
+  "schema": "system",
+  "columns": [
+    { "name": "id",
+      "type": "INTEGER",
+      "size": 4,
+      "auto_increment": true },
+    { "name": "username",
+      "type": "VARCHAR",
+      "size": 50 },
+    { "name": "password",
+      "type": "VARCHAR",
+      "size": 50 }
+  ],
+  "row_size": 117,
+  "next_id": 2,
+  "record_count": 1,
+  "created_at": "2026-03-22T00:00:00"
+}
