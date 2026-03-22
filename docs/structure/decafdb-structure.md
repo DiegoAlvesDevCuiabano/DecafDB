@@ -74,7 +74,7 @@ Schema metadata. Knows its tables and, in the future, views/procedures.
 
 ### 3.3 .meta (table metadata)
 
-Defines the table structure. Everything the engine needs to know how to read the `.decaf` file.
+Defines the table structure. This file is the "identity document" of a table. When the engine needs to know anything about a table, it reads this file. Without it, the engine looks at the binary `.decaf` file and has no idea where one column ends and another begins.
 
 **Example for table `alunos`:**
 
@@ -99,6 +99,27 @@ Defines the table structure. Everything the engine needs to know how to read the
   "record_count": 0,
   "created_at": "2026-03-21T22:00:00"
 }
+```
+
+**Field-by-field explanation:**
+
+- `table_name`: the name of the table.
+
+- `schema`: which schema this table belongs to.
+
+- `columns`: the list of user-defined columns. Each column has:
+  - `name`: column name.
+  - `type`: data type (INTEGER, REAL, VARCHAR, BOOLEAN).
+  - `size`: how many bytes this column occupies in the binary file.
+  - `auto_increment` (optional): if `true`, the system generates the value automatically. Only applicable to INTEGER columns.
+
+- `row_size`: total size of one record in bytes. This is the sum of all internal fields plus all user columns. For this example: 1 (_deleted) + 8 (_deleted_at) + 4 (_rowid) + 4 (id) + 100 (nome) + 4 (idade) = 121. This number is essential: to find record N in the binary file, the engine calculates `offset = N * row_size` and jumps directly to that position.
+
+- `next_id`: the next value that auto_increment will assign. After inserting a record with id = 1, this becomes 2. After inserting id = 2, this becomes 3. It only goes up, never reuses values, even after deletion.
+
+- `record_count`: how many records currently exist in the table (including deleted ones that haven't been purged yet).
+
+- `created_at`: timestamp of when the table was created. For reference only.
 ```
 
 ### 3.4 Internal Fields vs User Fields
