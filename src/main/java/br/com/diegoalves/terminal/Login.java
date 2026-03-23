@@ -1,7 +1,6 @@
 package br.com.diegoalves.terminal;
 
 import java.io.RandomAccessFile;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Login {

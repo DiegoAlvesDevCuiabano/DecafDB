@@ -1,5 +1,7 @@
 package br.com.diegoalves.terminal;
 
+import br.com.diegoalves.engine.Engine;
+
 import java.util.Scanner;
 
 public class Terminal {
@@ -22,9 +24,13 @@ public class Terminal {
 
     private static void terminalLoop(Scanner sc) {
         String entrada;
+        Engine engine = new Engine();
         do {
             System.out.print("decafdb>");
             entrada = sc.nextLine();
+            if (!entrada.equalsIgnoreCase("exit")) {
+                engine.start(entrada);
+            }
         } while (!entrada.equalsIgnoreCase("exit"));
     }
 
