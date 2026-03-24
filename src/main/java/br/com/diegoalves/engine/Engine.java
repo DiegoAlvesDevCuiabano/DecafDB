@@ -14,6 +14,11 @@ public class Engine {
         }
         switch (cmd.getType()) {
             case CREATE_SCHEMA -> System.out.println("Schema criado");
+            case CREATE_TABLE -> System.out.println("Tabela criada");
+            case UPDATE_SCHEMA -> System.out.println("Schema atualizado");
+            case UPDATE_TABLE -> System.out.println("Tabela atualizada");
+            case DROP_SCHEMA -> System.out.println("Schema excluido");
+            case DROP_TABLE -> System.out.println("Tabela excluida");
             default -> System.out.println("Comando inválido");
         }
     }
